@@ -1,5 +1,6 @@
 package com.zpy.rpc.config;
 
+import com.zpy.rpc.register.RegisterCenter;
 import com.zpy.rpc.rpcprovider.RpcProxyServerSpring;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -21,5 +22,10 @@ public class SpringConfig {
     @Bean(name="RpcProxyServerSpring")
     public RpcProxyServerSpring RpcProxyServerSpring(){
         return new RpcProxyServerSpring(8866);
+    }
+
+    @Bean(name = "RegisterCenter")
+    public RegisterCenter RegisterCenter(){
+        return new RegisterCenter();
     }
 }

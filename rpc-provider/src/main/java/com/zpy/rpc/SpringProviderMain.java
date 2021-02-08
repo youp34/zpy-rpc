@@ -11,7 +11,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  */
 public class SpringProviderMain {
     public static void main(String[] args) {
-        System.out.println("服务端启动               ");
+        System.out.println("服务端启动");
         ApplicationContext context=new AnnotationConfigApplicationContext(SpringConfig.class);
         ((AnnotationConfigApplicationContext) context).start();
     }

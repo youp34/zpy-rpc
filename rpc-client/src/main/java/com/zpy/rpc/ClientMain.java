@@ -12,7 +12,7 @@ public class ClientMain {
     public static void main(String[] args) {
         System.out.println("服务消费者使用");
         RpcProxyClient rpcProxyClient = new RpcProxyClient();
-        HelloRpc helloRpc = rpcProxyClient.proxyClient(HelloRpc.class,"127.0.0.1",8866);
-        System.out.println(helloRpc.sayHello("hello zpy!"));
+        //HelloRpc helloRpc = rpcProxyClient.proxyClient(HelloRpc.class,"127.0.0.1",8866);
+        //System.out.println(helloRpc.sayHello("hello zpy!"));
     }
 }

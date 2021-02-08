@@ -1,8 +1,10 @@
 package com.zpy.rpc.rpcprovider;
 
 import com.zpy.rpc.annotation.RpcServer;
+import com.zpy.rpc.register.RegisterCenter;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.util.StringUtils;
@@ -29,6 +31,9 @@ public class RpcProxyServerSpring implements ApplicationContextAware, Initializi
 
     //map<版本号＋类名，服务名>
     private Map<String,Object> handlerMap = new HashMap();
+
+    //初始化链接zk
+    private RegisterCenter registerCenter= null;
 
     public RpcProxyServerSpring(int port) {
         this.port = port;
@@ -70,6 +75,7 @@ public class RpcProxyServerSpring implements ApplicationContextAware, Initializi
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         //获取所有用@RpcServer注解修饰的类
         Map<String, Object> beansWithAnnotation = applicationContext.getBeansWithAnnotation(RpcServer.class);
+        registerCenter = applicationContext.getBean(RegisterCenter.class);
         if (!beansWithAnnotation.isEmpty()){
             //遍历出集合的所有的值
             for (Object serverBean : beansWithAnnotation.values()) {
@@ -84,6 +90,10 @@ public class RpcProxyServerSpring implements ApplicationContextAware, Initializi
                 if (!StringUtils.isEmpty(serverName)){
                     serverName+="-"+serverVersion;
                 }
+                //向zk注册服务
+
+                registerCenter.register(serverName,"localhost:8866");
+                // 本地注册表
                 handlerMap.put(serverName,serverBean);
             }
         }

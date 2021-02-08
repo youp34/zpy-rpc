@@ -1,6 +1,8 @@
 package com.zpy.rpc.config;
 
 import com.zpy.rpc.client.RpcProxyClient;
+import com.zpy.rpc.loadbalance.LoadBalanceUtil;
+import com.zpy.rpc.register.RegisterDiscovery;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,5 +16,13 @@ public class SpringConfig {
     @Bean(name = "rpcProxyClient")
     public RpcProxyClient rpcProxyClient(){
         return new RpcProxyClient();
+    }
+    @Bean(name = "RegisterDiscovery")
+    public RegisterDiscovery RegisterDiscovery(){
+        return new RegisterDiscovery();
+    }
+    @Bean(name = "LoadBalanceUtil")
+    public LoadBalanceUtil LoadBalanceUtil(){
+        return new LoadBalanceUtil();
     }
 }
